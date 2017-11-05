@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.*?>
+<<<<<<< HEAD
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
+=======
+>>>>>>> cac4495920b0f2d105f3a3f2791ab1edb6de4b1b
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
+<<<<<<< HEAD
 <TitledPane fx:id="TitledPanePrincipal" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1336.0" text="FrameWork" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
   <content>
     <AnchorPane fx:id="AnchoPanePrincipal" minHeight="0.0" minWidth="0.0">
@@ -91,3 +95,22 @@
          </children></AnchorPane>
   </content>
 </TitledPane>
+=======
+
+<BorderPane prefHeight="548.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <right>
+      <ScrollPane id="scrollGraphs" prefHeight="548.0" prefWidth="468.0" BorderPane.alignment="CENTER">
+         <content>
+            <StackedAreaChart prefHeight="323.0" prefWidth="466.0">
+              <xAxis>
+                <NumberAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </StackedAreaChart>
+         </content>
+      </ScrollPane>
+   </right>
+</BorderPane>
+>>>>>>> cac4495920b0f2d105f3a3f2791ab1edb6de4b1b
