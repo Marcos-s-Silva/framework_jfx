@@ -1,10 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="477.0" prefWidth="707.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.SampleController">
-	<!-- TODO Add Nodes -->
-</BorderPane>
+<TitledPane fx:id="TitledPanePrincipal" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1336.0" text="FrameWork" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <content>
+    <AnchorPane fx:id="AnchoPanePrincipal" minHeight="0.0" minWidth="0.0">
+         <children>
+            <TextArea fx:id="TextAreaRegras" layoutX="241.0" layoutY="35.0" prefHeight="578.0" prefWidth="310.0" />
+            <Label layoutX="330.0" layoutY="6.0" text="Insira as Regras" />
+            <Button fx:id="ButtonExecutarModelo" layoutX="421.0" layoutY="636.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Executar Modelo" />
+            <Label layoutX="56.0" layoutY="6.0" text="Inserção de Variáveis" />
+            <Label layoutX="21.0" layoutY="115.0" text="Variável:" />
+            <TextField fx:id="TextFieldVariavel" layoutX="74.0" layoutY="111.0" prefHeight="25.0" prefWidth="135.0" />
+            <Label layoutX="21.0" layoutY="78.0" text="Universo:    de" />
+            <TextField fx:id="TextFieldInicioUniverso" layoutX="100.0" layoutY="74.0" prefHeight="15.0" prefWidth="39.0" />
+            <Label layoutX="146.0" layoutY="78.0" text="até" />
+            <TextField fx:id="TextFieldFinalUniverso" layoutX="170.0" layoutY="74.0" prefHeight="25.0" prefWidth="39.0" />
+            <TreeView layoutX="10.0" layoutY="175.0" prefHeight="171.0" prefWidth="219.0" />
+            <Label layoutX="82.0" layoutY="182.0" text="Inserir Termos" />
+            <CheckBox fx:id="CheckBoxVariavelObjetivo" layoutX="75.0" layoutY="143.0" mnemonicParsing="false" text="Objetiva" />
+            <Label layoutX="21.0" layoutY="208.0" text="Termo:" />
+            <Label layoutX="21.0" layoutY="244.0" text="Suporte:" />
+            <Label layoutX="21.0" layoutY="280.0" text="Nucleo:" />
+            <TextField fx:id="TextFieldTermos" layoutX="65.0" layoutY="204.0" />
+            <Label layoutX="74.0" layoutY="244.0" text="de" />
+            <Label layoutX="74.0" layoutY="280.0" text="de" />
+            <Label layoutX="138.0" layoutY="244.0" text="até" />
+            <Label layoutX="138.0" layoutY="280.0" text="até" />
+            <TextField fx:id="TextFieldInicioSuporte" layoutX="90.0" layoutY="240.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="TextFieldFinalSuporte" layoutX="158.0" layoutY="240.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="TextFieldInicioNucleo" layoutX="90.0" layoutY="276.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="TextFieldFinalNucleo" layoutX="158.0" layoutY="276.0" prefHeight="25.0" prefWidth="43.0" />
+            <Button fx:id="ButtonInserirTermo" layoutX="94.0" layoutY="312.0" mnemonicParsing="false" text="Inserir" />
+            <Button layoutX="115.0" layoutY="357.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Inserir Variável" />
+            <TitledPane fx:id="TitledPaneGrafico" alignment="CENTER" animated="false" collapsible="false" layoutX="568.0" layoutY="8.0" prefHeight="670.0" prefWidth="760.0" text="Gráficos" textAlignment="CENTER">
+              <content>
+                <AnchorPane fx:id="AnchorPaneGrafico" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutX="101.0" layoutY="118.0" prefHeight="695.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane fx:id="AnchorPaneGraficoPrincipal" minHeight="0.0" minWidth="0.0" prefHeight="629.0" prefWidth="724.0">
+                                 <children>
+                                    <LineChart layoutX="14.0" layoutY="14.0" prefHeight="276.0" prefWidth="337.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <LineChart layoutX="373.0" layoutY="14.0" prefHeight="276.0" prefWidth="337.0">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                    <LineChart layoutX="25.0" layoutY="290.0" prefHeight="276.0" prefWidth="337.0">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                    <LineChart layoutX="373.0" layoutY="290.0" prefHeight="276.0" prefWidth="337.0">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children></AnchorPane>
+  </content>
+</TitledPane>
