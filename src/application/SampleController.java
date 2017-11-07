@@ -2,7 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
-import Classes.Variavel;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +17,6 @@ public class SampleController {
 	
 	@FXML
 	TextField txtFieldUniversoNome = new TextField();
-	
 	@FXML
 	TextField txtFieldUniversoStart= new TextField();
 	@FXML
@@ -55,7 +54,7 @@ public class SampleController {
 		for (String string : variaveisInseridas) {
 			tableVariavels.getItems().add(string);
 		}
-		System.out.println(tableVariavels.);
+		System.out.println("");
 	}
 	
 	

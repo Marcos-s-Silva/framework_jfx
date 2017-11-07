@@ -8,12 +8,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<<<<<<< HEAD
 
-<TitledPane fx:id="TitledPanePrincipal" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1336.0" text="FrameWork" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-=======
+
 <TitledPane fx:id="TitledPanePrincipal" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1336.0" text="FrameWork" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
->>>>>>> ac73d36d74b258a6c5ee7891bbc9d196c387e962
+
   <content>
     <AnchorPane fx:id="AnchoPanePrincipal" minHeight="0.0" minWidth="0.0">
          <children>
