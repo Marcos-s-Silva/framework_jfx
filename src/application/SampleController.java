@@ -55,7 +55,7 @@ public class SampleController {
 		for (String string : variaveisInseridas) {
 			tableVariavels.getItems().add(string);
 		}
-		System.out.println(tableVariavels.);
+		
 	}
 	
 	
