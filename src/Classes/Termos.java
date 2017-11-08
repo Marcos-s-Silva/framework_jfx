@@ -2,10 +2,12 @@ package Classes;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Termos {
 
+	private SimpleStringProperty nomeTermo;
 	
 	private SimpleIntegerProperty inicioNucleo;
 	
@@ -14,6 +16,20 @@ public class Termos {
 	private SimpleIntegerProperty inicioSuporte;
 	
 	private SimpleIntegerProperty fimSuporte;
+	
+	
+	
+	
+	///NOME TERMO
+	public String getNomeTermo() {
+		return nomeTermo.get();
+	}
+	public void setNomeTermo(String nome) {
+		this.nomeTermo.set(nome);
+	}
+	public StringProperty nomeTermoProperty(){
+		return this.nomeTermo;
+	}
 	
 	///INICIO NUCLEO
 	public Integer getInicioNucleo() {

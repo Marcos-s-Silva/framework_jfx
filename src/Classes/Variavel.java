@@ -27,12 +27,7 @@ public class Variavel {
 		this.variaveisInseridas = FXCollections.observableArrayList();
 	}
 	
-	public void inserirTermo(int inicioNucleo, int fimNucleo, int inicioSuporte, int fimSuporte){
-		Termos t = new Termos();
-		t.setInicioNucleo(inicioNucleo);
-		t.setFimNucleo(fimNucleo);
-		t.setInicioSuporte(inicioSuporte);
-		t.setFimSuporte(fimSuporte);
+	public void inserirTermo(Termos t){
 		this.variaveisInseridas.add(t);
 	}
 	
