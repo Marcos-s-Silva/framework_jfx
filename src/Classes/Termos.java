@@ -18,6 +18,13 @@ public class Termos {
 	private SimpleIntegerProperty fimSuporte;
 	
 	
+	public Termos(){
+		this.nomeTermo = new SimpleStringProperty();
+		this.inicioNucleo = new SimpleIntegerProperty();
+		this.fimNucleo = new SimpleIntegerProperty();
+		this.inicioSuporte = new SimpleIntegerProperty();
+		this.fimSuporte = new SimpleIntegerProperty();
+	}
 	
 	
 	///NOME TERMO

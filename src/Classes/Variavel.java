@@ -35,6 +35,23 @@ public class Variavel {
 		return this.variaveisInseridas;
 	}
 	
+	public Termos retornaTermoUnico(int index){
+		return variaveisInseridas.get(index);
+	}
+	
+	public void removeTermoUnico(int index){
+		this.variaveisInseridas.remove(index);
+	}
+	
+	public int retornaIndiceDoTermo(String nomeDoTermo){
+		for (int i = 0; i < this.variaveisInseridas.size(); i++) {
+			if (this.variaveisInseridas.get(i).getNomeTermo().equals(nomeDoTermo)) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	
 	
 /////////NOME	
