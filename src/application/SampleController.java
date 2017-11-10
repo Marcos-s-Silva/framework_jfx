@@ -91,16 +91,24 @@ public class SampleController implements Initializable{
 				variavelSelecionadaDaTreeView = new Variavel();
 			}else{
 				if (tSelecionada.getValue().equals("Termos")) {
-					variavelSelecionadaDaTreeView = new Variavel();
+					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getValue()));
 				}else if(tSelecionada.getParent().getValue().equals("Termos")){ // UM TERMO 
 					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getParent().getValue()));
 					termoSelecionadoDaTreeView = variavelSelecionadaDaTreeView.retornaTermoUnico(this.returnIndexOfSelectedTerm((String) tSelecionada.getValue()));
+
+				}else if(tSelecionada.getValue().equals("Gráfico")){
+					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getValue()));
+				}else if(tSelecionada.getParent().getValue().equals("Gráfico")){
+					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getParent().getValue()));
+					termoSelecionadoDaTreeView = variavelSelecionadaDaTreeView.retornaTermoUnico(this.returnIndexOfSelectedTerm((String) tSelecionada.getValue()));
+				
 				}else{
 					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getValue()));
 				}
 			}	
 		}		
 	}
+	
 	public int returnIndexOfSelectedVariable(String nomeDaVariavel){
 		for (int i = 0; i < variaveisInseridas.size(); i++) {
 			if (variaveisInseridas.get(i).getNome().equals(nomeDaVariavel)) {
@@ -122,9 +130,7 @@ public class SampleController implements Initializable{
 	    	var.getChildren().add(new TreeItem<String>("Começo do Universo: "+variavel.getUniversoStart()));
 	    	var.getChildren().add(new TreeItem<String>("Fim do Universo: "+variavel.getUniversoEnd()));
 	    	var.getChildren().add(new TreeItem<String>("Objetiva: "+variavel.getObjetiva()));
-	    	var.getChildren().add(new TreeItem<AreaChart>(this.creatingGraph(variavel)));
 	    	TreeItem termosFilhos =	new TreeItem<String>("Termos");
-	    	var.getChildren().add(termosFilhos);
 	    	for (Termos term : variavel.returnTemos()) {
 	    		TreeItem termoUnico = new TreeItem<String>(term.getNomeTermo());
 	    		
@@ -132,10 +138,21 @@ public class SampleController implements Initializable{
 	    		termoUnico.getChildren().add(new TreeItem<String>("Fim nucleo: "+term.getFimNucleo()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Inicio suporte: "+term.getInicioSuporte()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Fim suporte: "+term.getFimSuporte()));
+	    		TreeItem graph = new TreeItem<String>("Gráfico");
+	    		graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermo(term)));
 	    		
+	    		termoUnico.getChildren().add(graph);
 	    		termosFilhos.getChildren().add(termoUnico);
 	    		
+	    		
 			}
+	    	var.getChildren().add(termosFilhos);
+	    	TreeItem graph = new TreeItem<String>("Gráfico");
+	    	graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermos(variavel)));
+	    	var.getChildren().add(graph);
+	    	
+	    	
+	    	
 	      root.getChildren().add(var);
 	      
 	    }
@@ -144,23 +161,75 @@ public class SampleController implements Initializable{
 	    tableVariavels.setRoot(root);
 	  }
 	
-	
-	private AreaChart creatingGraph(Variavel v){
-		NumberAxis eixoX =  new NumberAxis(v.getUniversoStart(),v.getUniversoEnd(),1);
+	private AreaChart creatingGraphTermo(Termos t){
+		NumberAxis eixoX =  new NumberAxis();
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
-		ac.setTitle("TITULO");
 		
 		XYChart.Series serieDoGrafico = new XYChart.Series<>();
-		serieDoGrafico.getData().add(new XYChart.Data(1, 4));
-		serieDoGrafico.getData().add(new XYChart.Data(3, 10));
-		serieDoGrafico.getData().add(new XYChart.Data(6, 15));
-		serieDoGrafico.getData().add(new XYChart.Data(9, 8));
+		serieDoGrafico.setName(t.getNomeTermo());
 		
-	    ac.getData().addAll(serieDoGrafico); 
+		if (t.getInicioSuporte() == t.getInicioNucleo()) {
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), 0));
+		}else if (t.getFimSuporte() == t.getFimNucleo()) {
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), 0));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+			
+		}else{
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), 0));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), 0));
+		}
+		
+	    ac.getData().addAll(serieDoGrafico);
+	    
 	    
 	    return ac;
 	}
+	
+	private AreaChart creatingGraphTermos(Variavel v){
+		NumberAxis eixoX =  new NumberAxis();
+		NumberAxis eixoY = new NumberAxis();
+		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
+		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
+
+		
+		for (Termos t : v.returnTemos()) {
+			XYChart.Series serieDoGrafico = new XYChart.Series<>();
+			serieDoGrafico.setName(t.getNomeTermo());
+			if (t.getInicioSuporte() == t.getInicioNucleo()) {
+				serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), 0));
+			}else if (t.getFimSuporte() == t.getFimNucleo()) {
+				serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), 0));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+			}else{
+				serieDoGrafico.getData().add(new XYChart.Data(t.getInicioNucleo(), 1));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getFimNucleo(), 1));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), 0));
+				serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), 0));
+			}
+			arrayDeDados.add(serieDoGrafico);
+		}
+		
+		
+		for (XYChart.Series series : arrayDeDados) {
+			ac.getData().addAll(series);
+		}
+	    
+	    
+	    
+	    return ac;
+	}
+	
+	
+	
 	
 	@FXML
 	public void inserirVariavel(){

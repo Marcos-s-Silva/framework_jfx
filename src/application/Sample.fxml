@@ -17,7 +17,7 @@
       <Label layoutX="16.0" layoutY="75.0" text="V, Start" />
       <Label layoutX="79.0" layoutY="75.0" prefHeight="17.0" prefWidth="46.0" text="V. End" />
       <CheckBox fx:id="chckBoxVariavelObjetiva" layoutX="17.0" layoutY="132.0" mnemonicParsing="false" text="Objectiva" />
-      <TreeView fx:id="tableVariavels" layoutX="25.0" layoutY="290.0" onMouseReleased="#editingTree" prefHeight="440.0" prefWidth="341.0" />
+      <TreeView fx:id="tableVariavels" layoutX="25.0" layoutY="290.0" onMouseReleased="#editingTree" prefHeight="430.0" prefWidth="1050.0" />
       <Button fx:id="btnInserirVariavel" layoutX="15.0" layoutY="158.0" mnemonicParsing="false" onAction="#inserirVariavel" text="Inserir Variavel" />
       <Separator layoutX="172.0" layoutY="3.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="11.0" />
       <TextField fx:id="txtFieldTermoNucleoInicio" layoutX="191.0" layoutY="101.0" prefHeight="25.0" prefWidth="52.0" />
