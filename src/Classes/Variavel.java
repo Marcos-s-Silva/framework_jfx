@@ -13,18 +13,18 @@ public class Variavel {
 	
 	private SimpleStringProperty nome;
 	
-	private SimpleIntegerProperty universoStart;
-	private SimpleIntegerProperty universoEnd;
 	private SimpleBooleanProperty objetiva;
+	private SimpleIntegerProperty valor;
 	ObservableList<Termos> variaveisInseridas;
+	
+	
 	
 	
 	public Variavel(){
 		this.nome = new SimpleStringProperty();
-		this.universoStart = new SimpleIntegerProperty();
-		this.universoEnd = new SimpleIntegerProperty();
 		this.objetiva = new SimpleBooleanProperty();
 		this.variaveisInseridas = FXCollections.observableArrayList();
+		this.valor = new SimpleIntegerProperty();
 	}
 	
 	public void inserirTermo(Termos t){
@@ -45,13 +45,42 @@ public class Variavel {
 	
 	public int retornaIndiceDoTermo(String nomeDoTermo){
 		for (int i = 0; i < this.variaveisInseridas.size(); i++) {
-			if (this.variaveisInseridas.get(i).getNomeTermo().equals(nomeDoTermo)) {
+			if (this.variaveisInseridas.get(i).getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
 				return i;
 			}
 		}
 		return 0;
 	}
 	
+	public void resetPertinenciaTermos(){
+		for (Termos termos : variaveisInseridas) {
+			termos.setGrauDePertinencia(0);
+		}
+	}
+	
+	public void setVariaveisInseridas(ObservableList<Termos> tInseridas){
+		this.variaveisInseridas = tInseridas;
+	}
+	
+	
+	public void insereGrauDePertinenciaEmTermoByNome(String nomeDoTermo, double grauDePertinencia){
+		for (Termos termos : variaveisInseridas) {
+			if (termos.getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
+				if (termos.getGrauDePertinencia()<grauDePertinencia) {
+					termos.setGrauDePertinencia(grauDePertinencia);
+				}
+			}
+		}
+	}
+	
+	public Variavel clone(){
+		Variavel vRetorna = new Variavel();
+		vRetorna.setNome(this.getNome());
+		vRetorna.setValor(this.getValor());
+		vRetorna.setObjetiva(this.getObjetiva());
+		vRetorna.setVariaveisInseridas(this.returnTemos());
+		return vRetorna;
+	}
 	
 	
 /////////NOME	
@@ -64,28 +93,6 @@ public class Variavel {
 	public StringProperty nomeProperty(){
 		return this.nome;
 	}
-/////////UNIVERO START
-	public int getUniversoStart(){
-		return universoStart.get();
-	}
-	public void setUniversoStart(int us){
-		this.universoStart.set(us);
-	}
-	public IntegerProperty universoStartProperty(){
-		return this.universoStart;
-	}
-	
-//////////////UNIVERSO END
-	public int getUniversoEnd(){
-		return universoEnd.get();
-	}
-	public void setUniversoEnd(int ue){
-		this.universoEnd.set(ue);
-	}
-	public IntegerProperty universoEndProperty(){
-		return this.universoEnd;
-	}
-	
 //////////OBJETIVA
 	public boolean getObjetiva(){
 		return objetiva.get();
@@ -96,7 +103,16 @@ public class Variavel {
 	public BooleanProperty objetivaProperty(){
 		return this.objetiva;
 	}
-	
+	///////////VALOR
+	public int getValor(){
+		return valor.get();
+	}
+	public void setValor(int v){
+		this.valor.set(v);
+	}
+	public IntegerProperty valorProperty(){
+		return this.valor;
+	}
 	
 	
 	

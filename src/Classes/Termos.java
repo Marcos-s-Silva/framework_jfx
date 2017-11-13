@@ -1,6 +1,8 @@
 package Classes;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,6 +19,8 @@ public class Termos {
 	
 	private SimpleIntegerProperty fimSuporte;
 	
+	private SimpleDoubleProperty grauDePertinencia;
+	
 	
 	public Termos(){
 		this.nomeTermo = new SimpleStringProperty();
@@ -24,6 +28,19 @@ public class Termos {
 		this.fimNucleo = new SimpleIntegerProperty();
 		this.inicioSuporte = new SimpleIntegerProperty();
 		this.fimSuporte = new SimpleIntegerProperty();
+		this.grauDePertinencia = new SimpleDoubleProperty();
+	}
+	
+	
+	public Termos clone(){
+		Termos t = new Termos();
+		t.setNomeTermo(this.getNomeTermo());
+		t.setInicioNucleo(this.getInicioNucleo());
+		t.setFimNucleo(this.getFimNucleo());
+		t.setInicioSuporte(this.getInicioSuporte());
+		t.setFimSuporte(this.getFimSuporte());
+		t.setGrauDePertinencia(this.getGrauDePertinencia());
+		return t;
 	}
 	
 	
@@ -77,5 +94,15 @@ public class Termos {
 	}
 	public IntegerProperty fimSuporteProperty(){
 		return this.fimSuporte;
+	}
+	//GRAU DE PERTINENCIA
+	public Double getGrauDePertinencia() {
+		return grauDePertinencia.get();
+	}
+	public void setGrauDePertinencia(double in) {
+		this.grauDePertinencia.set(in);
+	}
+	public DoubleProperty grauDePertinenciaProperty(){
+		return this.grauDePertinencia;
 	}
 }

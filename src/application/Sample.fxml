@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
@@ -10,30 +11,57 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
-      <TextField fx:id="txtFieldUniversoNome" layoutX="15.0" layoutY="37.0" />
-      <TextField fx:id="txtFieldUniversoStart" layoutX="10.0" layoutY="97.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtFieldUniversoEnd" layoutX="76.0" layoutY="97.0" prefHeight="25.0" prefWidth="52.0" />
+      <TreeView layoutX="7.0" layoutY="5.0" prefHeight="282.0" prefWidth="275.0" />
+      <TextField fx:id="txtFieldUniversoStart" layoutX="27.0" layoutY="648.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtFieldUniversoEnd" layoutX="106.0" layoutY="648.0" prefHeight="25.0" prefWidth="52.0" />
       <Label layoutX="14.0" layoutY="14.0" text="Variavel nome" />
-      <Label layoutX="16.0" layoutY="75.0" text="V, Start" />
-      <Label layoutX="79.0" layoutY="75.0" prefHeight="17.0" prefWidth="46.0" text="V. End" />
-      <CheckBox fx:id="chckBoxVariavelObjetiva" layoutX="17.0" layoutY="132.0" mnemonicParsing="false" text="Objectiva" />
-      <TreeView fx:id="tableVariavels" layoutX="25.0" layoutY="290.0" onMouseReleased="#editingTree" prefHeight="430.0" prefWidth="1050.0" />
-      <Button fx:id="btnInserirVariavel" layoutX="15.0" layoutY="158.0" mnemonicParsing="false" onAction="#inserirVariavel" text="Inserir Variavel" />
-      <Separator layoutX="172.0" layoutY="3.0" orientation="VERTICAL" prefHeight="242.0" prefWidth="11.0" />
-      <TextField fx:id="txtFieldTermoNucleoInicio" layoutX="191.0" layoutY="101.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtFieldTermoNucleoFim" layoutX="251.0" layoutY="101.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtFieldTermoSuporteFim" layoutX="251.0" layoutY="160.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtFieldTermoSuporteInicio" layoutX="191.0" layoutY="160.0" prefHeight="25.0" prefWidth="52.0" />
-      <TextField fx:id="txtFieldTermoNome" layoutX="190.0" layoutY="37.0" />
-      <Label layoutX="192.0" layoutY="14.0" text="Nome termo" />
-      <Label layoutX="191.0" layoutY="79.0" text="N. Start" />
-      <Label layoutX="251.0" layoutY="79.0" text="N. End" />
-      <Label layoutX="251.0" layoutY="137.0" text="S. End" />
-      <Label layoutX="191.0" layoutY="137.0" text="S. Start" />
-      <Button fx:id="btnInserirTermo" layoutX="183.0" layoutY="195.0" mnemonicParsing="false" onAction="#inserirTermo" text="inserir Termo" />
-      <Button fx:id="btnEditarVariavel" layoutX="16.0" layoutY="195.0" mnemonicParsing="false" onAction="#editarVariavel" text="Editar Variavel" />
-      <Button fx:id="btnExcluirVariavel" layoutX="15.0" layoutY="227.0" mnemonicParsing="false" onAction="#excluirVariavel" text="Excluir Variavel" />
-      <Button fx:id="btnEditarTermo" layoutX="184.0" layoutY="227.0" mnemonicParsing="false" onAction="#editarTermo" text="Editar Termo" />
-      <Button fx:id="btnExcluirTermo" layoutX="182.0" layoutY="259.0" mnemonicParsing="false" onAction="#exlcuirTermo" text="Excluir Termo" />
+      <Label layoutX="27.0" layoutY="631.0" text="U. Start" />
+      <Label layoutX="105.0" layoutY="631.0" prefHeight="17.0" prefWidth="46.0" text="U. End" />
+      <CheckBox fx:id="chckBoxVariavelObjetiva" layoutX="38.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#desabilitarValorVariavel" text="Objetiva" />
+      <Button fx:id="btnInserirVariavel" layoutX="24.0" layoutY="179.0" mnemonicParsing="false" onAction="#inserirVariavel" text="Inserir Variavel" />
+      <TextField fx:id="txtFieldTermoNucleoInicio" layoutX="157.0" layoutY="85.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtFieldTermoNucleoFim" layoutX="220.0" layoutY="85.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtFieldTermoSuporteFim" layoutX="220.0" layoutY="138.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtFieldTermoSuporteInicio" layoutX="157.0" layoutY="138.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="txtFieldTermoNome" layoutX="152.0" layoutY="37.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label layoutX="162.0" layoutY="14.0" text="Nome termo" />
+      <Label layoutX="157.0" layoutY="67.0" text="N. Start" />
+      <Label layoutX="220.0" layoutY="67.0" text="N. End" />
+      <Label layoutX="221.0" layoutY="120.0" text="S. End" />
+      <Label layoutX="158.0" layoutY="120.0" text="S. Start" />
+      <Button fx:id="btnInserirTermo" layoutX="166.0" layoutY="179.0" mnemonicParsing="false" onAction="#inserirTermo" text="Inserir Termo" />
+      <Button fx:id="btnEditarVariavel" layoutX="25.0" layoutY="211.0" mnemonicParsing="false" onAction="#editarVariavel" text="Editar Variavel" />
+      <Button fx:id="btnExcluirVariavel" layoutX="24.0" layoutY="246.0" mnemonicParsing="false" onAction="#excluirVariavel" text="Excluir Variavel" />
+      <Button fx:id="btnEditarTermo" layoutX="167.0" layoutY="211.0" mnemonicParsing="false" onAction="#editarTermo" text="Editar Termo" />
+      <Button fx:id="btnExcluirTermo" layoutX="165.0" layoutY="246.0" mnemonicParsing="false" onAction="#exlcuirTermo" text="Excluir Termo" />
+      <TextArea fx:id="areaRegras" layoutX="10.0" layoutY="333.0" prefHeight="148.0" prefWidth="1180.0" />
+      <TreeView fx:id="tableVariavels" layoutX="282.0" layoutY="5.0" onMouseReleased="#editingTree" prefHeight="282.0" prefWidth="904.0" />
+      <Separator layoutX="138.0" layoutY="11.0" orientation="VERTICAL" prefHeight="276.0" prefWidth="13.0" />
+      <TextField fx:id="txtFieldUniversoNome" layoutX="14.0" layoutY="37.0" prefHeight="25.0" prefWidth="114.0" />
+      <Separator layoutX="7.0" layoutY="303.0" prefHeight="11.0" prefWidth="540.0" />
+      <Separator layoutX="591.0" layoutY="303.0" prefHeight="11.0" prefWidth="588.0" />
+      <Label layoutX="552.0" layoutY="300.0" text="Regras" />
+      <TextField fx:id="txtFieldUniversoValue" layoutX="57.0" layoutY="151.0" prefHeight="25.0" prefWidth="52.0" />
+      <Label layoutX="22.0" layoutY="155.0" text="Valor:" />
+      <Button fx:id="btnPadrao" layoutX="1029.0" layoutY="724.0" mnemonicParsing="false" onAction="#preenchePadrao" text="Preenche Padrão" />
+      <Button fx:id="btnAplicarRegras" layoutX="11.0" layoutY="489.0" mnemonicParsing="false" onAction="#capturaRegras" text="Aplicar Regras" />
+      <Button fx:id="btnSetaUniverso" layoutX="26.0" layoutY="680.0" mnemonicParsing="false" onAction="#setaUniverso" text="Set Universo" />
+      <TitledPane animated="false" expanded="false" layoutX="636.0" layoutY="296.0" prefHeight="74.0" prefWidth="546.0" text="Regras">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <MenuButton layoutX="91.0" layoutY="14.0" mnemonicParsing="false" text="Modificadores">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="!muito" />
+                      <MenuItem mnemonicParsing="false" text="!algo" />
+                        <MenuItem mnemonicParsing="false" text="!defato" />
+                    </items>
+                  </MenuButton>
+                  <Label layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="66.0" text="\$VARIAVEL" />
+                  <Label layoutX="209.0" layoutY="18.0" prefHeight="17.0" prefWidth="174.0" text="TERMO entao OBJETIVA TERMO" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>

@@ -3,10 +3,14 @@ package application;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.sun.javafx.geom.Area;
+import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
+import Classes.Brain;
 import Classes.Termos;
 import Classes.Variavel;
 import javafx.application.Platform;
@@ -25,10 +29,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 public class SampleController implements Initializable{
@@ -40,6 +46,8 @@ public class SampleController implements Initializable{
 	TextField txtFieldUniversoStart = new TextField();
 	@FXML
 	TextField txtFieldUniversoEnd = new TextField(); 
+	@FXML
+	TextField txtFieldUniversoValue = new TextField();
 	@FXML
 	TextField txtFieldTermoNome = new TextField(); 
 	@FXML
@@ -68,6 +76,20 @@ public class SampleController implements Initializable{
 	Button btnEditarTermo = new Button();
 	@FXML
 	Button btnExcluirTermo = new Button();
+	@FXML
+	Button btnPadrao = new Button();
+	@FXML
+	Button btnSetaUniverso = new Button();
+	@FXML
+	Button btnAplicarRegras = new Button();
+	@FXML
+	TextArea areaRegras = new TextArea();
+	
+	
+	int universoStart = 0;
+	int universoEnd = 0;
+	int lastTickUnite = 0;
+	
 	
 	Variavel variavelSelecionadaDaTreeView = new Variavel();
 	
@@ -75,12 +97,46 @@ public class SampleController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+	
+	}
+	
+	
+	@FXML 
+	public void startTheProgram(){
+		
 		
 		
 	}
 	
+	@FXML
+	public void desabilitarValorVariavel(){
+		System.out.println("CHAMOU");
+		if (chckBoxVariavelObjetiva.isSelected()) {
+			this.txtFieldUniversoValue.setDisable(true);
+		}else{
+			this.txtFieldUniversoValue.setDisable(false);
+		}
+	}
+	
+	public ObservableList atualizandoTabelaDeValores(){
+		ObservableList<Variavel> arrayRetorna = FXCollections.observableArrayList();
+		for (Variavel variavel : variaveisInseridas) {
+			if (variavel.getObjetiva() == false) {
+				arrayRetorna.add(variavel);
+			}
+		}
+		return arrayRetorna;
+	}
+	
+	
+	@FXML
+	public void setaUniverso(){
+		this.universoStart = Integer.parseInt(txtFieldUniversoStart.getText());
+		this.universoEnd = Integer.parseInt(txtFieldUniversoEnd.getText());
+		this.loadTreeItems();
+	}
+	
 	public void editingTree(){
-		//System.out.println(tableVariavels.getSelectionModel().getSelectedIndex());
 		
 		TreeItem tSelecionada = (TreeItem) tableVariavels.getSelectionModel().getSelectedItem();
 		
@@ -111,7 +167,7 @@ public class SampleController implements Initializable{
 	
 	public int returnIndexOfSelectedVariable(String nomeDaVariavel){
 		for (int i = 0; i < variaveisInseridas.size(); i++) {
-			if (variaveisInseridas.get(i).getNome().equals(nomeDaVariavel)) {
+			if (variaveisInseridas.get(i).getNome().equalsIgnoreCase(nomeDaVariavel)) {
 				return i;
 			}
 		}
@@ -127,17 +183,17 @@ public class SampleController implements Initializable{
 	    root.setExpanded(true);
 	    for (Variavel variavel : variaveisInseridas) {
 	    	TreeItem var =	new TreeItem<String>(variavel.getNome());
-	    	var.getChildren().add(new TreeItem<String>("Começo do Universo: "+variavel.getUniversoStart()));
-	    	var.getChildren().add(new TreeItem<String>("Fim do Universo: "+variavel.getUniversoEnd()));
+	    	var.getChildren().add(new TreeItem<String>("Valor: "+variavel.getValor()));
 	    	var.getChildren().add(new TreeItem<String>("Objetiva: "+variavel.getObjetiva()));
 	    	TreeItem termosFilhos =	new TreeItem<String>("Termos");
 	    	for (Termos term : variavel.returnTemos()) {
 	    		TreeItem termoUnico = new TreeItem<String>(term.getNomeTermo());
-	    		
+	    		termoUnico.getChildren().add(new TreeItem<String>("Grau de Pertinência: "+term.getGrauDePertinencia()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Inicio nucleo: "+term.getInicioNucleo()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Fim nucleo: "+term.getFimNucleo()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Inicio suporte: "+term.getInicioSuporte()));
 	    		termoUnico.getChildren().add(new TreeItem<String>("Fim suporte: "+term.getFimSuporte()));
+	    		
 	    		TreeItem graph = new TreeItem<String>("Gráfico");
 	    		graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermo(term)));
 	    		
@@ -148,9 +204,17 @@ public class SampleController implements Initializable{
 			}
 	    	var.getChildren().add(termosFilhos);
 	    	TreeItem graph = new TreeItem<String>("Gráfico");
-	    	graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermos(variavel)));
-	    	var.getChildren().add(graph);
+    	
 	    	
+	    	if (variavel.getObjetiva()) {
+	    		graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermosPertinencia(variavel)));
+				var.getChildren().add(graph);
+			}else{
+				graph.getChildren().add(new TreeItem<AreaChart>(this.creatingGraphTermos(variavel)));
+				var.getChildren().add(graph);
+			}
+			
+			
 	    	
 	    	
 	      root.getChildren().add(var);
@@ -162,7 +226,7 @@ public class SampleController implements Initializable{
 	  }
 	
 	private AreaChart creatingGraphTermo(Termos t){
-		NumberAxis eixoX =  new NumberAxis();
+		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 		
@@ -192,7 +256,7 @@ public class SampleController implements Initializable{
 	}
 	
 	private AreaChart creatingGraphTermos(Variavel v){
-		NumberAxis eixoX =  new NumberAxis();
+		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
@@ -223,11 +287,35 @@ public class SampleController implements Initializable{
 			ac.getData().addAll(series);
 		}
 	    
+	    return ac;
+	}
+	
+	private AreaChart creatingGraphTermosPertinencia(Variavel v){
+		NumberAxis eixoX =  new NumberAxis();
+		NumberAxis eixoY = new NumberAxis();
+		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
+		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
+
+		
+		for (Termos t : v.returnTemos()) {
+			XYChart.Series serieDoGrafico = new XYChart.Series<>();
+			serieDoGrafico.setName(t.getNomeTermo());
+			
+			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), t.getGrauDePertinencia()));
+			serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), t.getGrauDePertinencia()));
+			
+			arrayDeDados.add(serieDoGrafico);
+		}
+		
+		
+		for (XYChart.Series series : arrayDeDados) {
+			ac.getData().addAll(series);
+		}
+	    
 	    
 	    
 	    return ac;
 	}
-	
 	
 	
 	
@@ -238,19 +326,15 @@ public class SampleController implements Initializable{
 			v.setNome(txtFieldUniversoNome.getText());
 		}
 		txtFieldUniversoNome.setText("");
-		if (!txtFieldUniversoStart.getText().isEmpty()) {
-			v.setUniversoStart(Integer.parseInt(txtFieldUniversoStart.getText()));
-		}
-		txtFieldUniversoStart.setText("");
-		
-		if (!txtFieldUniversoEnd.getText().isEmpty()) {
-			v.setUniversoEnd(Integer.parseInt(txtFieldUniversoEnd.getText()));
-		}
-		
-		txtFieldUniversoEnd.setText("");
 
 		v.setObjetiva(chckBoxVariavelObjetiva.isSelected());
 		chckBoxVariavelObjetiva.setSelected(false);
+		
+		if (!txtFieldUniversoValue.getText().isEmpty()) {
+			v.setValor(Integer.parseInt(txtFieldUniversoValue.getText()));
+		}
+		
+		txtFieldUniversoValue.setText("");
 		
 		variaveisInseridas.add(v);
 		
@@ -293,20 +377,15 @@ public class SampleController implements Initializable{
 			variavelSelecionadaDaTreeView.setNome(txtFieldUniversoNome.getText());
 		}
 		txtFieldUniversoNome.setText("");
-		if (!txtFieldUniversoStart.getText().isEmpty()) {
-			variavelSelecionadaDaTreeView.setUniversoStart(Integer.parseInt(txtFieldUniversoStart.getText()));
-		}
-		txtFieldUniversoStart.setText("");
 		
-		if (!txtFieldUniversoEnd.getText().isEmpty()) {
-			variavelSelecionadaDaTreeView.setUniversoEnd(Integer.parseInt(txtFieldUniversoEnd.getText()));
-		}
-		
-		txtFieldUniversoEnd.setText("");
-
 		variavelSelecionadaDaTreeView.setObjetiva(chckBoxVariavelObjetiva.isSelected());
 		chckBoxVariavelObjetiva.setSelected(false);
 		
+		if (!txtFieldUniversoValue.getText().isEmpty()) {
+			variavelSelecionadaDaTreeView.setValor(Integer.parseInt(txtFieldUniversoValue.getText()));
+		}
+		
+		txtFieldUniversoValue.setText("");
 		
 		this.loadTreeItems();
 		
@@ -358,5 +437,303 @@ public class SampleController implements Initializable{
 	
 	
 	
+	
+	@FXML
+	public void preenchePadrao(){
+		
+		Variavel v = new Variavel();
+		Termos t = new Termos();
+		Brain b = new Brain();
+		
+		v.setNome("Umidade");
+		v.setValor(12);
+		
+		t.setNomeTermo("Baixa");
+		t.setInicioNucleo(0);
+		t.setFimNucleo(10);
+		t.setInicioSuporte(0);
+		t.setFimSuporte(20);
+		
+		Termos t2 = new Termos();
+		t2.setNomeTermo("Média");
+		t2.setInicioNucleo(20);
+		t2.setFimNucleo(20);
+		t2.setInicioSuporte(10);
+		t2.setFimSuporte(30);
+		
+		Termos t3 = new Termos();
+		t3.setNomeTermo("Alta");
+		t3.setInicioNucleo(30);
+		t3.setFimNucleo(40);
+		t3.setInicioSuporte(20);
+		t3.setFimSuporte(40);
+		
+		v.inserirTermo(t);
+		v.inserirTermo(t2);
+		v.inserirTermo(t3);
+		
+		
+		variaveisInseridas.add(v);
+		
+		
+		
+		b.calcula(v);
+		
+		 v = new Variavel();
+		t = new Termos();
+		
+		v.setNome("Temperatura");
+		v.setValor(33);
+		
+		t.setNomeTermo("Baixa");
+		t.setInicioNucleo(0);
+		t.setFimNucleo(10);
+		t.setInicioSuporte(0);
+		t.setFimSuporte(20);
+		
+		t2 = new Termos();
+		t2.setNomeTermo("Média");
+		t2.setInicioNucleo(20);
+		t2.setFimNucleo(20);
+		t2.setInicioSuporte(10);
+		t2.setFimSuporte(30);
+		
+		t3 = new Termos();
+		t3.setNomeTermo("Alta");
+		t3.setInicioNucleo(30);
+		t3.setFimNucleo(40);
+		t3.setInicioSuporte(20);
+		t3.setFimSuporte(40);
+		
+		v.inserirTermo(t);
+		v.inserirTermo(t2);
+		v.inserirTermo(t3);
+		
+		
+		variaveisInseridas.add(v);
+		
+		b.calcula(v);
+		
+		 v = new Variavel();
+			t = new Termos();
+			
+			v.setNome("Irrigacao");
+			v.setObjetiva(true);
+			
+			t.setNomeTermo("Baixa");
+			t.setInicioNucleo(0);
+			t.setFimNucleo(10);
+			t.setInicioSuporte(0);
+			t.setFimSuporte(20);
+			
+			t2 = new Termos();
+			t2.setNomeTermo("Média");
+			t2.setInicioNucleo(20);
+			t2.setFimNucleo(20);
+			t2.setInicioSuporte(10);
+			t2.setFimSuporte(30);
+			
+			t3 = new Termos();
+			t3.setNomeTermo("Alta");
+			t3.setInicioNucleo(30);
+			t3.setFimNucleo(40);
+			t3.setInicioSuporte(20);
+			t3.setFimSuporte(40);
+			
+			v.inserirTermo(t);
+			v.inserirTermo(t2);
+			v.inserirTermo(t3);
+			
+			
+			variaveisInseridas.add(v);
+			
+			b.calcula(v);
+		
+		
+		
+		this.universoStart = 0;
+		this.txtFieldUniversoStart.setText(0+"");
+		this.universoEnd = 40;
+		this.txtFieldUniversoEnd.setText(40+"");
+		
+		this.loadTreeItems();
+		
+		this.areaRegras.setText("m");
+		this.areaRegras.setText("se $temperatura !muito alta & $umidade baixa entao irrigacao baixa\n"
+								+ "se $umidade baixa || $temperatura alta entao irrigacao baixa\n"
+								+ "se $temperatura baixa & $umdiade baixa entao irrigacao baixa\n");
+		
+		
+		
+	}
+	
+	@FXML
+	public void capturaRegras(){
+		
+		ArrayList<Termos> termosAtivos = new ArrayList<>();
+		String[] allTextSplitted = this.areaRegras.getText().split("\n");
+		Variavel variavelObjetiva = new Variavel();
+		
+		for (Variavel vv : variaveisInseridas) {
+			if (vv.getObjetiva()) {
+				variavelObjetiva = vv;
+			}
+		}
+		
+		variavelObjetiva.resetPertinenciaTermos();
+		
+		
+		for (int i = 0; i < allTextSplitted.length; i++) {
+			String[] linhaSplitted = allTextSplitted[i].split(" ");
+			
+			
+			for (int j = 0; j < linhaSplitted.length; j++) {
+				if (linhaSplitted[j].startsWith("$")) {
+					Variavel VariavelSel = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j].substring(1,linhaSplitted[j].length())));
+					
+					if (linhaSplitted[j+1].startsWith("!")) {
+						Termos termoSel = VariavelSel.retornaTermoUnico(VariavelSel.retornaIndiceDoTermo(linhaSplitted[j+2]));
+						if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("muito")) {
+							variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], Math.pow(termoSel.getGrauDePertinencia(), 2));
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("algo")) {
+							variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], Math.pow(termoSel.getGrauDePertinencia(), 0.5));
+							
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("defato")) {
+							if (0 <= termoSel.getGrauDePertinencia() && termoSel.getGrauDePertinencia()<=0.5) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], (2*(Math.pow(termoSel.getGrauDePertinencia(), 2))));
+							}else{
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], 1-(2*(Math.pow(termoSel.getGrauDePertinencia(), 2))));
+							}
+						}
+					}else{
+						Termos termoSel = VariavelSel.retornaTermoUnico(VariavelSel.retornaIndiceDoTermo(linhaSplitted[j+1]));
+						variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], termoSel.getGrauDePertinencia());
+					}
+					
+				}else if (linhaSplitted[j].equals("&")) {
+					Termos anterior = new Termos();
+					Termos posterior = new Termos();
+					Termos posteriorAux = new Termos();
+					Variavel variavelAnterior = new Variavel();
+					Variavel variavelPosterior = new Variavel();
+					
+					
+					if (linhaSplitted[j-2].startsWith("$")) {
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j].length())));
+					}else{
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j].length())));
+					}
+					anterior = variavelAnterior.retornaTermoUnico(variavelAnterior.retornaIndiceDoTermo(linhaSplitted[j-1]));
+					
+					
+					variavelPosterior = variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j].length())));
+					
+					if (linhaSplitted[j+2].startsWith("!")) {
+						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+3]));
+						if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("muito")) {
+							posteriorAux = posterior.clone();
+							posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 2));
+							
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("algo")) {
+							posteriorAux = posterior.clone();
+							posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 0.5));
+							
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("defato")) {
+							if (0 <= posterior.getGrauDePertinencia() && posterior.getGrauDePertinencia()<=0.5) {
+								posteriorAux = posterior.clone();
+								posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 2));
+							}else{
+								posteriorAux = posterior.clone();
+								posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 0.5));
+							}
+						}
+					}else{
+						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+2]));
+					}
+					
+					
+					j+=2;
+					
+					variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], this.ativaFuncaoE(anterior, posterior).getGrauDePertinencia());
+					
+				}else if (linhaSplitted[j].equals("||")) {
+					Termos anterior = new Termos();
+					Termos posterior = new Termos();
+					Termos posteriorAux = new Termos();
+					Variavel variavelAnterior = new Variavel();
+					Variavel variavelPosterior = new Variavel();
+					
+					
+					if (linhaSplitted[j-2].startsWith("$")) {
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j].length())));
+					}else{
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j].length())));
+					}
+					anterior = variavelAnterior.retornaTermoUnico(variavelAnterior.retornaIndiceDoTermo(linhaSplitted[j-1]));
+					
+					
+					variavelPosterior = variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j].length())));
+					
+					if (linhaSplitted[j+2].startsWith("!")) {
+						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+3]));
+						if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("muito")) {
+							posteriorAux = posterior.clone();
+							posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 2));
+							
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("algo")) {
+							posteriorAux = posterior.clone();
+							posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 0.5));
+							
+						}else if (linhaSplitted[j+1].substring(1, linhaSplitted[j+1].length()).equalsIgnoreCase("defato")) {
+							if (0 <= posterior.getGrauDePertinencia() && posterior.getGrauDePertinencia()<=0.5) {
+								posteriorAux = posterior.clone();
+								posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 2));
+							}else{
+								posteriorAux = posterior.clone();
+								posteriorAux.setGrauDePertinencia(Math.pow(posterior.getGrauDePertinencia(), 0.5));
+							}
+						}
+					}else{
+						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+2]));
+					}
+					
+					
+					j+=2;
+					
+					variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], this.ativaFuncaoOu(anterior, posterior).getGrauDePertinencia());
+					
+				}
+			}
+		}
+		this.loadTreeItems();
+	}
+	
+	
+	
+	public void defuzzy(){
+		
+	}
+	
+	public Termos ativaFuncaoE(Termos termoAnterior, Termos termoPosterior){
+		double menorValor = Math.min(termoAnterior.getGrauDePertinencia(), termoPosterior.getGrauDePertinencia());
+		
+		if (termoAnterior.getGrauDePertinencia()==menorValor) {
+			return termoAnterior;
+		}else{
+			return termoPosterior;
+		}
+		
+	}
+	
+	public Termos ativaFuncaoOu(Termos termoAnterior, Termos termoPosterior){
+		double maiorValor = Math.max(termoAnterior.getGrauDePertinencia(), termoPosterior.getGrauDePertinencia());
+		
+		if (termoAnterior.getGrauDePertinencia()==maiorValor) {
+			return termoAnterior;
+		}else{
+			return termoPosterior;
+		}
+		
+	}
 	
 }
