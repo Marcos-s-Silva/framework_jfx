@@ -63,5 +63,7 @@
             </AnchorPane>
         </content>
       </TitledPane>
+      <Label layoutX="568.0" layoutY="610.0" prefHeight="17.0" prefWidth="46.0" text="Defuzzy" />
+      <TextField fx:id="txtFieldDeFuzzy" editable="false" layoutX="620.0" layoutY="606.0" prefHeight="25.0" prefWidth="114.0" />
    </children>
 </AnchorPane>

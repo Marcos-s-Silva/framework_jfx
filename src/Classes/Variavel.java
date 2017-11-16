@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.Collections;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -62,6 +64,9 @@ public class Variavel {
 		this.variaveisInseridas = tInseridas;
 	}
 	
+	public void inverteListaTermos(){
+		Collections.reverse(variaveisInseridas);
+	}
 	
 	public void insereGrauDePertinenciaEmTermoByNome(String nomeDoTermo, double grauDePertinencia){
 		for (Termos termos : variaveisInseridas) {

@@ -51,6 +51,8 @@ public class SampleController implements Initializable{
 	@FXML
 	TextField txtFieldTermoNome = new TextField(); 
 	@FXML
+	TextField txtFieldDeFuzzy = new TextField(); 
+	@FXML
 	TextField txtFieldTermoSuporteInicio = new TextField();
 	@FXML
 	TextField txtFieldTermoSuporteFim = new TextField(); 
@@ -291,7 +293,7 @@ public class SampleController implements Initializable{
 	}
 	
 	private AreaChart creatingGraphTermosPertinencia(Variavel v){
-		NumberAxis eixoX =  new NumberAxis();
+		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
@@ -445,28 +447,28 @@ public class SampleController implements Initializable{
 		Termos t = new Termos();
 		Brain b = new Brain();
 		
-		v.setNome("Umidade");
-		v.setValor(12);
+		v.setNome("Dinheiro");
+		v.setValor(35);
 		
-		t.setNomeTermo("Baixa");
+		t.setNomeTermo("Inadequado");
 		t.setInicioNucleo(0);
-		t.setFimNucleo(10);
+		t.setFimNucleo(30);
 		t.setInicioSuporte(0);
-		t.setFimSuporte(20);
+		t.setFimSuporte(50);
 		
 		Termos t2 = new Termos();
-		t2.setNomeTermo("Média");
-		t2.setInicioNucleo(20);
-		t2.setFimNucleo(20);
-		t2.setInicioSuporte(10);
-		t2.setFimSuporte(30);
+		t2.setNomeTermo("Medio");
+		t2.setInicioNucleo(50);
+		t2.setFimNucleo(50);
+		t2.setInicioSuporte(30);
+		t2.setFimSuporte(70);
 		
 		Termos t3 = new Termos();
-		t3.setNomeTermo("Alta");
-		t3.setInicioNucleo(30);
-		t3.setFimNucleo(40);
-		t3.setInicioSuporte(20);
-		t3.setFimSuporte(40);
+		t3.setNomeTermo("Adequado");
+		t3.setInicioNucleo(70);
+		t3.setFimNucleo(100);
+		t3.setInicioSuporte(50);
+		t3.setFimSuporte(100);
 		
 		v.inserirTermo(t);
 		v.inserirTermo(t2);
@@ -482,32 +484,25 @@ public class SampleController implements Initializable{
 		 v = new Variavel();
 		t = new Termos();
 		
-		v.setNome("Temperatura");
-		v.setValor(33);
+		v.setNome("Pessoal");
+		v.setValor(60);
 		
-		t.setNomeTermo("Baixa");
+		t.setNomeTermo("Baixo");
 		t.setInicioNucleo(0);
-		t.setFimNucleo(10);
+		t.setFimNucleo(30);
 		t.setInicioSuporte(0);
-		t.setFimSuporte(20);
+		t.setFimSuporte(70);
 		
 		t2 = new Termos();
-		t2.setNomeTermo("Média");
-		t2.setInicioNucleo(20);
-		t2.setFimNucleo(20);
-		t2.setInicioSuporte(10);
-		t2.setFimSuporte(30);
-		
-		t3 = new Termos();
-		t3.setNomeTermo("Alta");
-		t3.setInicioNucleo(30);
-		t3.setFimNucleo(40);
-		t3.setInicioSuporte(20);
-		t3.setFimSuporte(40);
+		t2.setNomeTermo("Alto");
+		t2.setInicioNucleo(70);
+		t2.setFimNucleo(100);
+		t2.setInicioSuporte(30);
+		t2.setFimSuporte(100);
 		
 		v.inserirTermo(t);
 		v.inserirTermo(t2);
-		v.inserirTermo(t3);
+		
 		
 		
 		variaveisInseridas.add(v);
@@ -517,28 +512,28 @@ public class SampleController implements Initializable{
 		 v = new Variavel();
 			t = new Termos();
 			
-			v.setNome("Irrigacao");
+			v.setNome("Risco");
 			v.setObjetiva(true);
 			
-			t.setNomeTermo("Baixa");
-			t.setInicioNucleo(0);
-			t.setFimNucleo(10);
+			t.setNomeTermo("Pequeno");
+			t.setInicioNucleo(10);
+			t.setFimNucleo(40);
 			t.setInicioSuporte(0);
-			t.setFimSuporte(20);
+			t.setFimSuporte(60);
 			
 			t2 = new Termos();
-			t2.setNomeTermo("Média");
-			t2.setInicioNucleo(20);
-			t2.setFimNucleo(20);
-			t2.setInicioSuporte(10);
-			t2.setFimSuporte(30);
+			t2.setNomeTermo("Normal");
+			t2.setInicioNucleo(60);
+			t2.setFimNucleo(60);
+			t2.setInicioSuporte(40);
+			t2.setFimSuporte(80);
 			
 			t3 = new Termos();
-			t3.setNomeTermo("Alta");
-			t3.setInicioNucleo(30);
-			t3.setFimNucleo(40);
-			t3.setInicioSuporte(20);
-			t3.setFimSuporte(40);
+			t3.setNomeTermo("Alto");
+			t3.setInicioNucleo(80);
+			t3.setFimNucleo(100);
+			t3.setInicioSuporte(60);
+			t3.setFimSuporte(100);
 			
 			v.inserirTermo(t);
 			v.inserirTermo(t2);
@@ -552,16 +547,16 @@ public class SampleController implements Initializable{
 		
 		
 		this.universoStart = 0;
-		this.txtFieldUniversoStart.setText(0+"");
-		this.universoEnd = 40;
-		this.txtFieldUniversoEnd.setText(40+"");
+		this.txtFieldUniversoStart.setText(universoStart+"");
+		this.universoEnd = 100;
+		this.txtFieldUniversoEnd.setText(universoEnd+"");
 		
 		this.loadTreeItems();
 		
 		this.areaRegras.setText("m");
-		this.areaRegras.setText("se $temperatura !muito alta & $umidade baixa entao irrigacao baixa\n"
-								+ "se $umidade baixa || $temperatura alta entao irrigacao baixa\n"
-								+ "se $temperatura baixa & $umdiade baixa entao irrigacao baixa\n");
+		this.areaRegras.setText("se $dinheiro adequado || $pessoal baixo entao risco pequeno\n"
+								+ "se $dinheiro medio & $pessoal alto entao risco normal\n"
+								+ "se $dinheiro inadequado entao risco alto\n");
 		
 		
 		
@@ -671,8 +666,7 @@ public class SampleController implements Initializable{
 					}
 					anterior = variavelAnterior.retornaTermoUnico(variavelAnterior.retornaIndiceDoTermo(linhaSplitted[j-1]));
 					
-					
-					variavelPosterior = variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j].length())));
+					variavelPosterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j+1].length())));
 					
 					if (linhaSplitted[j+2].startsWith("!")) {
 						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+3]));
@@ -695,6 +689,7 @@ public class SampleController implements Initializable{
 						}
 					}else{
 						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+2]));
+					
 					}
 					
 					
@@ -706,11 +701,69 @@ public class SampleController implements Initializable{
 			}
 		}
 		this.loadTreeItems();
+		this.defuzzy();
 	}
 	
 	
 	
 	public void defuzzy(){
+		Variavel variavelObjetiva = new Variavel();
+		
+		for (Variavel variavel : variaveisInseridas) {
+			if (variavel.getObjetiva()) {
+				variavelObjetiva = variavel;
+			}
+		}
+		
+		
+		int tickUnit = (universoStart+universoEnd)/10;
+		 
+		
+		double[][] soma = new double[variavelObjetiva.returnTemos().size()-1][variavelObjetiva.returnTemos().size()];
+		int linhaSoma = 0;
+		int colunaSoma = variavelObjetiva.returnTemos().size()-1;
+		int tickfinal = this.universoEnd;
+		
+		variavelObjetiva.inverteListaTermos();
+		for (Termos t : variavelObjetiva.returnTemos()) {
+			int qtdTick = 0;
+			double somatorioSuporte =0;
+
+			
+			int fimSup = t.getFimSuporte();
+			while (fimSup > (t.getInicioSuporte()+tickUnit)) {
+				somatorioSuporte = somatorioSuporte + tickfinal;
+				tickfinal = tickfinal-tickUnit;
+				qtdTick++;
+				fimSup=fimSup-tickUnit;
+				
+			}
+			
+			
+			somatorioSuporte = somatorioSuporte * t.getGrauDePertinencia();
+		
+			
+			
+			soma[linhaSoma][colunaSoma] = somatorioSuporte;
+			soma[linhaSoma+1][colunaSoma] = qtdTick*t.getGrauDePertinencia();
+			colunaSoma--;
+		}
+		
+		
+		double qtdToDividir = 0;
+		for (int i = soma.length; i > -1; i--) {
+			qtdToDividir = qtdToDividir+soma[linhaSoma+1][i];
+			
+		}
+		double qtdSomaTotal = 0;
+		for (int i = soma.length; i > -1; i--) {
+			qtdSomaTotal = qtdSomaTotal+soma[linhaSoma][i];
+		}
+		
+		txtFieldDeFuzzy.setText(qtdSomaTotal/qtdToDividir+"");
+		
+		
+		
 		
 	}
 	
