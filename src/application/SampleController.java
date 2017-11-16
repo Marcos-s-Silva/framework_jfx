@@ -2,6 +2,7 @@ package application;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
@@ -92,6 +93,7 @@ public class SampleController implements Initializable{
 	int universoEnd = 0;
 	int lastTickUnite = 0;
 	
+	ArrayList<XYChart.Series> arrayDeDadosObjetiva = new ArrayList<>();
 	
 	Variavel variavelSelecionadaDaTreeView = new Variavel();
 	
@@ -296,21 +298,10 @@ public class SampleController implements Initializable{
 		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
-		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
-
-		
-		for (Termos t : v.returnTemos()) {
-			XYChart.Series serieDoGrafico = new XYChart.Series<>();
-			serieDoGrafico.setName(t.getNomeTermo());
-			
-			serieDoGrafico.getData().add(new XYChart.Data(t.getInicioSuporte(), t.getGrauDePertinencia()));
-			serieDoGrafico.getData().add(new XYChart.Data(t.getFimSuporte(), t.getGrauDePertinencia()));
-			
-			arrayDeDados.add(serieDoGrafico);
-		}
+	
 		
 		
-		for (XYChart.Series series : arrayDeDados) {
+		for (XYChart.Series series : this.arrayDeDadosObjetiva) {
 			ac.getData().addAll(series);
 		}
 	    
@@ -709,6 +700,8 @@ public class SampleController implements Initializable{
 	public void defuzzy(){
 		Variavel variavelObjetiva = new Variavel();
 		
+		
+		
 		for (Variavel variavel : variaveisInseridas) {
 			if (variavel.getObjetiva()) {
 				variavelObjetiva = variavel;
@@ -726,9 +719,16 @@ public class SampleController implements Initializable{
 		
 		variavelObjetiva.inverteListaTermos();
 		for (Termos t : variavelObjetiva.returnTemos()) {
+			XYChart.Series serieDoGrafico = new XYChart.Series<>();
+			serieDoGrafico.setName(t.getNomeTermo());
+			
+			
+			
 			int qtdTick = 0;
 			double somatorioSuporte =0;
-
+			
+			int qtdValorTick = tickfinal;
+			
 			
 			int fimSup = t.getFimSuporte();
 			while (fimSup > (t.getInicioSuporte()+tickUnit)) {
@@ -736,9 +736,12 @@ public class SampleController implements Initializable{
 				tickfinal = tickfinal-tickUnit;
 				qtdTick++;
 				fimSup=fimSup-tickUnit;
-				
 			}
 			
+			serieDoGrafico.getData().add(new XYChart.Data(tickfinal, t.getGrauDePertinencia()));
+			serieDoGrafico.getData().add(new XYChart.Data(qtdValorTick, t.getGrauDePertinencia()));
+			
+			this.arrayDeDadosObjetiva.add(serieDoGrafico);
 			
 			somatorioSuporte = somatorioSuporte * t.getGrauDePertinencia();
 		
@@ -762,7 +765,8 @@ public class SampleController implements Initializable{
 		
 		txtFieldDeFuzzy.setText(qtdSomaTotal/qtdToDividir+"");
 		
-		
+		Collections.reverse(this.arrayDeDadosObjetiva);
+		this.loadTreeItems();
 		
 		
 	}
