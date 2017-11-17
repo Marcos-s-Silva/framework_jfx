@@ -104,14 +104,6 @@ public class SampleController implements Initializable{
 	
 	}
 	
-	
-	@FXML 
-	public void startTheProgram(){
-		
-		
-		
-	}
-	
 	@FXML
 	public void desabilitarValorVariavel(){
 		System.out.println("CHAMOU");
@@ -556,6 +548,7 @@ public class SampleController implements Initializable{
 	@FXML
 	public void capturaRegras(){
 		
+		this.arrayDeDadosObjetiva.clear();
 		ArrayList<Termos> termosAtivos = new ArrayList<>();
 		String[] allTextSplitted = this.areaRegras.getText().split("\n");
 		Variavel variavelObjetiva = new Variavel();
@@ -700,8 +693,6 @@ public class SampleController implements Initializable{
 	public void defuzzy(){
 		Variavel variavelObjetiva = new Variavel();
 		
-		
-		
 		for (Variavel variavel : variaveisInseridas) {
 			if (variavel.getObjetiva()) {
 				variavelObjetiva = variavel;
@@ -718,6 +709,7 @@ public class SampleController implements Initializable{
 		int tickfinal = this.universoEnd;
 		
 		variavelObjetiva.inverteListaTermos();
+		
 		for (Termos t : variavelObjetiva.returnTemos()) {
 			XYChart.Series serieDoGrafico = new XYChart.Series<>();
 			serieDoGrafico.setName(t.getNomeTermo());
@@ -737,7 +729,6 @@ public class SampleController implements Initializable{
 				qtdTick++;
 				fimSup=fimSup-tickUnit;
 			}
-			
 			serieDoGrafico.getData().add(new XYChart.Data(tickfinal, t.getGrauDePertinencia()));
 			serieDoGrafico.getData().add(new XYChart.Data(qtdValorTick, t.getGrauDePertinencia()));
 			
@@ -763,11 +754,14 @@ public class SampleController implements Initializable{
 			qtdSomaTotal = qtdSomaTotal+soma[linhaSoma][i];
 		}
 		
-		txtFieldDeFuzzy.setText(qtdSomaTotal/qtdToDividir+"");
+		
+		double total = (qtdSomaTotal/qtdToDividir);
+		txtFieldDeFuzzy.clear();
+		txtFieldDeFuzzy.setText(total+"");
 		
 		Collections.reverse(this.arrayDeDadosObjetiva);
+		variavelObjetiva.inverteListaTermos();
 		this.loadTreeItems();
-		
 		
 	}
 	
