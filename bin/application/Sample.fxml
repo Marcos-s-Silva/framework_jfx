@@ -85,7 +85,7 @@
       </Label>
       <Label layoutX="268.0" layoutY="82.0" text="Núcleo" />
       <Label layoutX="269.0" layoutY="131.0" text="Suporte" />
-      <Label layoutX="51.0" layoutY="75.0" prefHeight="17.0" prefWidth="66.0" text="É Objetiva?" />
+      <Label layoutX="51.0" layoutY="82.0" prefHeight="17.0" prefWidth="66.0" text="É Objetiva?" />
       <Label layoutX="49.0" layoutY="131.0" text="Contém Valor?" />
       <Label layoutX="427.0" layoutY="11.0" text="Selecionados da árvore">
          <font>
