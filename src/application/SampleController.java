@@ -87,6 +87,10 @@ public class SampleController implements Initializable{
 	Button btnAplicarRegras = new Button();
 	@FXML
 	TextArea areaRegras = new TextArea();
+	@FXML
+	TextField txtFieldVariavelSelecionada = new TextField();
+	@FXML
+	TextField txtFieldTermoSelecionado = new TextField();
 	
 	
 	int universoStart = 0;
@@ -101,12 +105,10 @@ public class SampleController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	
 	}
 	
 	@FXML
 	public void desabilitarValorVariavel(){
-		System.out.println("CHAMOU");
 		if (chckBoxVariavelObjetiva.isSelected()) {
 			this.txtFieldUniversoValue.setDisable(true);
 		}else{
@@ -147,7 +149,7 @@ public class SampleController implements Initializable{
 				}else if(tSelecionada.getParent().getValue().equals("Termos")){ // UM TERMO 
 					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getParent().getValue()));
 					termoSelecionadoDaTreeView = variavelSelecionadaDaTreeView.retornaTermoUnico(this.returnIndexOfSelectedTerm((String) tSelecionada.getValue()));
-
+					
 				}else if(tSelecionada.getValue().equals("Gráfico")){
 					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getParent().getValue()));
 				}else if(tSelecionada.getParent().getValue().equals("Gráfico")){
@@ -158,7 +160,15 @@ public class SampleController implements Initializable{
 					variavelSelecionadaDaTreeView = variaveisInseridas.get(this.returnIndexOfSelectedVariable((String) tSelecionada.getValue()));
 				}
 			}	
-		}		
+		}
+		
+		if (variavelSelecionadaDaTreeView.getNome() != null && !variavelSelecionadaDaTreeView.getNome().equals("")) {
+			txtFieldVariavelSelecionada.setText(variavelSelecionadaDaTreeView.getNome());
+		}
+		if (termoSelecionadoDaTreeView.getNomeTermo() != null && !termoSelecionadoDaTreeView.getNomeTermo().equals("")) {
+			txtFieldTermoSelecionado.setText(termoSelecionadoDaTreeView.getNomeTermo());
+		}
+		
 	}
 	
 	public int returnIndexOfSelectedVariable(String nomeDaVariavel){
