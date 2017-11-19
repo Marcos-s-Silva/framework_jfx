@@ -91,7 +91,7 @@ public class SampleController implements Initializable{
 	TextField txtFieldVariavelSelecionada = new TextField();
 	@FXML
 	TextField txtFieldTermoSelecionado = new TextField();
-	
+	Brain b = new Brain();
 	
 	int universoStart = 0;
 	int universoEnd = 0;
@@ -363,7 +363,7 @@ public class SampleController implements Initializable{
 		
 		variavelSelecionadaDaTreeView.inserirTermo(termoAInserir);
 		
-		
+		b.calcula(variavelSelecionadaDaTreeView);
 		this.loadTreeItems();
 	}
 	@FXML
@@ -408,8 +408,9 @@ public class SampleController implements Initializable{
 		}
 		txtFieldTermoSuporteFim.setText("");
 	
-		
+		b.calcula(variavelSelecionadaDaTreeView);
 		this.loadTreeItems();
+		
 	}
 	@FXML
 	public void excluirVariavel(){
@@ -438,7 +439,7 @@ public class SampleController implements Initializable{
 		
 		Variavel v = new Variavel();
 		Termos t = new Termos();
-		Brain b = new Brain();
+		
 		
 		v.setNome("Dinheiro");
 		v.setValor(35);
