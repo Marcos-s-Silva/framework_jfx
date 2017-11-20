@@ -17,6 +17,8 @@ public class Variavel {
 	
 	private SimpleBooleanProperty objetiva;
 	private SimpleIntegerProperty valor;
+	private SimpleIntegerProperty universoStart;
+	private SimpleIntegerProperty universoEnd;
 	ObservableList<Termos> variaveisInseridas;
 	
 	
@@ -27,10 +29,13 @@ public class Variavel {
 		this.objetiva = new SimpleBooleanProperty();
 		this.variaveisInseridas = FXCollections.observableArrayList();
 		this.valor = new SimpleIntegerProperty();
+		this.universoStart = new SimpleIntegerProperty();
+		this.universoEnd = new SimpleIntegerProperty();
 	}
 	
 	public void inserirTermo(Termos t){
 		this.variaveisInseridas.add(t);
+		this.defineUniversos();
 	}
 	
 	public ObservableList<Termos> returnTemos(){
@@ -78,6 +83,16 @@ public class Variavel {
 		}
 	}
 	
+	public void defineUniversos(){
+		for (Termos termos : variaveisInseridas) {
+			if (this.getUniversoEnd() < termos.getFimSuporte()) {
+				this.setUniversoEnd(termos.getFimSuporte()); 
+			}
+			if (this.getUniversoStart() > termos.getInicioSuporte()) {
+				this.universoStart.set(termos.getInicioSuporte());
+			}
+		}
+	}
 	public Variavel clone(){
 		Variavel vRetorna = new Variavel();
 		vRetorna.setNome(this.getNome());
@@ -117,6 +132,26 @@ public class Variavel {
 	}
 	public IntegerProperty valorProperty(){
 		return this.valor;
+	}
+	///UNIVERSO START
+	public int getUniversoStart(){
+		return universoStart.get();
+	}
+	public void setUniversoStart(int v){
+		this.universoStart.set(v);
+	}
+	public IntegerProperty universoStartProperty(){
+		return this.universoStart;
+	}
+	////UNIVERSO END
+	public int getUniversoEnd(){
+		return universoEnd.get();
+	}
+	public void setUniversoEnd(int v){
+		this.universoEnd.set(v);
+	}
+	public IntegerProperty universoEndProperty(){
+		return this.universoEnd;
 	}
 	
 	

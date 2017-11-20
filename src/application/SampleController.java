@@ -232,7 +232,7 @@ public class SampleController implements Initializable{
 	  }
 	
 	private AreaChart creatingGraphTermo(Termos t){
-		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
+		NumberAxis eixoX =  new NumberAxis(t.getInicioSuporte(), t.getFimSuporte(), (Math.abs(t.getInicioSuporte())+Math.abs(t.getFimSuporte()))/10);
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 		
@@ -262,7 +262,7 @@ public class SampleController implements Initializable{
 	}
 	
 	private AreaChart creatingGraphTermos(Variavel v){
-		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
+		NumberAxis eixoX =  new NumberAxis(v.getUniversoStart(), v.getUniversoEnd(), (Math.abs(v.getUniversoStart())+Math.abs(v.getUniversoEnd()))/10);
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 		ArrayList<XYChart.Series> arrayDeDados = new ArrayList<>();
@@ -297,7 +297,7 @@ public class SampleController implements Initializable{
 	}
 	
 	private AreaChart creatingGraphTermosPertinencia(Variavel v){
-		NumberAxis eixoX =  new NumberAxis(this.universoStart, this.universoEnd, ((this.universoStart+this.universoEnd)/10));
+		NumberAxis eixoX =  new NumberAxis(v.getUniversoStart(), v.getUniversoEnd(), (Math.abs(v.getUniversoStart())+Math.abs(v.getUniversoEnd()))/10);
 		NumberAxis eixoY = new NumberAxis();
 		AreaChart<Number, Number> ac = new AreaChart<>(eixoX, eixoY);
 	
@@ -540,11 +540,6 @@ public class SampleController implements Initializable{
 		
 		
 		
-		this.universoStart = 0;
-		this.txtFieldUniversoStart.setText(universoStart+"");
-		this.universoEnd = 100;
-		this.txtFieldUniversoEnd.setText(universoEnd+"");
-		
 		this.loadTreeItems();
 		
 		this.areaRegras.setText("m");
@@ -711,13 +706,13 @@ public class SampleController implements Initializable{
 		}
 		
 		
-		int tickUnit = (universoStart+universoEnd)/10;
+		int tickUnit = (Math.abs(variavelObjetiva.getUniversoStart())+Math.abs(variavelObjetiva.getUniversoEnd()))/10;
 		 
 		
 		double[][] soma = new double[variavelObjetiva.returnTemos().size()-1][variavelObjetiva.returnTemos().size()];
 		int linhaSoma = 0;
 		int colunaSoma = variavelObjetiva.returnTemos().size()-1;
-		int tickfinal = this.universoEnd;
+		int tickfinal = variavelObjetiva.getUniversoEnd();
 		
 		variavelObjetiva.inverteListaTermos();
 		
