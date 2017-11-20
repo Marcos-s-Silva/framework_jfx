@@ -44,10 +44,6 @@ public class SampleController implements Initializable{
 	@FXML
 	TextField txtFieldUniversoNome = new TextField(); 
 	@FXML
-	TextField txtFieldUniversoStart = new TextField();
-	@FXML
-	TextField txtFieldUniversoEnd = new TextField(); 
-	@FXML
 	TextField txtFieldUniversoValue = new TextField();
 	@FXML
 	TextField txtFieldTermoNome = new TextField(); 
@@ -127,12 +123,7 @@ public class SampleController implements Initializable{
 	}
 	
 	
-	@FXML
-	public void setaUniverso(){
-		this.universoStart = Integer.parseInt(txtFieldUniversoStart.getText());
-		this.universoEnd = Integer.parseInt(txtFieldUniversoEnd.getText());
-		this.loadTreeItems();
-	}
+
 	
 	public void editingTree(){
 		
@@ -409,6 +400,7 @@ public class SampleController implements Initializable{
 		txtFieldTermoSuporteFim.setText("");
 	
 		b.calcula(variavelSelecionadaDaTreeView);
+		variavelSelecionadaDaTreeView.defineUniversos();
 		this.loadTreeItems();
 		
 	}
