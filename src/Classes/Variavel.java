@@ -84,9 +84,7 @@ public class Variavel {
 	public void insereGrauDePertinenciaEmTermoByNome(String nomeDoTermo, double grauDePertinencia){
 		for (Termos termos : variaveisInseridas) {
 			if (termos.getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
-				Termos aux = termos.clone();
-				aux.setGrauDePertinencia(grauDePertinencia);
-				this.termosToManipulate.add(aux);
+				termos.setGrauDePertinencia(grauDePertinencia);
 			}
 		}
 	}
@@ -121,10 +119,12 @@ public class Variavel {
 		return vRetorna;
 	}
 
+	
 	public void salvacaoFinal(){
 		for (Termos termos : variaveisInseridas) {
 			for (Termos termos2 : termosToManipulate) {
 				if (termos.getNomeTermo().equalsIgnoreCase(termos2.getNomeTermo())) {
+					System.out.println(termos.getGrauDePertinencia()+" "+termos2.getGrauDePertinencia());
 					if (termos.getGrauDePertinencia()<termos2.getGrauDePertinencia()) {
 						termos.setGrauDePertinencia(termos2.getGrauDePertinencia());
 					}

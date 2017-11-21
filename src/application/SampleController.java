@@ -598,6 +598,7 @@ public class SampleController implements Initializable{
 		ArrayList<Termos> termosAtivos = new ArrayList<>();
 		String[] allTextSplitted = this.areaRegras.getText().split("\n");
 		Variavel variavelObjetiva = new Variavel();
+		String auxiliarTermos = "";
 		
 		for (Variavel vv : variaveisInseridas) {
 			if (vv.getObjetiva()) {
@@ -606,11 +607,12 @@ public class SampleController implements Initializable{
 		}
 		
 		variavelObjetiva.resetPertinenciaTermos();
+		variavelObjetiva.termosToManipulate.clear();
 		
 		
 		for (int i = 0; i < allTextSplitted.length; i++) {
 			String[] linhaSplitted = allTextSplitted[i].split(" ");
-			
+			auxiliarTermos = linhaSplitted[linhaSplitted.length-1];
 			
 			for (int j = 0; j < linhaSplitted.length; j++) {
 				if (linhaSplitted[j].startsWith("$")) {
@@ -678,8 +680,35 @@ public class SampleController implements Initializable{
 					
 					
 					j+=2;
+
+					double funcaoEAtivada = this.ativaFuncaoE(anterior, posterior).getGrauDePertinencia();
+
+					if (j-3>0 && linhaSplitted[j-2].startsWith("!")){
+						if (linhaSplitted[j-3].equals("&")) {
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()>funcaoEAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoEAtivada );
+							}
+						}else if(linhaSplitted[j-3].equals("||")){
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()>funcaoEAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoEAtivada );
+							}
+						}
+					}else{
+						if (linhaSplitted[j-2].equals("&")) {
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()>funcaoEAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoEAtivada );
+							}
+						}else if(linhaSplitted[j-2].equals("||")){
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()>funcaoEAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoEAtivada );
+							}
+						}
+					}
 					
-					variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], this.ativaFuncaoE(anterior, posterior).getGrauDePertinencia());
 					
 				}else if (linhaSplitted[j].equals("||")) {
 					Termos anterior = new Termos();
@@ -725,10 +754,43 @@ public class SampleController implements Initializable{
 					
 					j+=2;
 					
-					variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(linhaSplitted[linhaSplitted.length-1], this.ativaFuncaoOu(anterior, posterior).getGrauDePertinencia());
+					double funcaoOuAtivada = this.ativaFuncaoOu(anterior, posterior).getGrauDePertinencia();
 					
+					if (j-3>0 && linhaSplitted[j-2].startsWith("!")){
+						if (linhaSplitted[j-3].equals("&")) {
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()<funcaoOuAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoOuAtivada );
+							}
+						}else if(linhaSplitted[j-3].equals("||")){
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()<funcaoOuAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoOuAtivada );
+							}
+						}
+					}else{
+						if (linhaSplitted[j-2].equals("&")) {
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()<funcaoOuAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoOuAtivada );
+							}
+						}else if(linhaSplitted[j-2].equals("||")){
+							Termos	termoOperacaoAnterior = variavelObjetiva.retornaTermoUnico(variavelObjetiva.retornaIndiceDoTermo(linhaSplitted[linhaSplitted.length-1]));
+							if (termoOperacaoAnterior.getGrauDePertinencia()<funcaoOuAtivada) {
+								variavelObjetiva.insereGrauDePertinenciaEmTermoByNome(termoOperacaoAnterior.getNomeTermo(),funcaoOuAtivada );
+							}
+						}
+					}
 				}
 			}
+			int index = variavelObjetiva.retornaIndiceDoTermo(auxiliarTermos);
+			if (index != -1) {
+				Termos aux = variavelObjetiva.retornaTermoUnico(index).clone();
+				variavelObjetiva.termosToManipulate.add(aux);
+				auxiliarTermos="";
+				variavelObjetiva.resetPertinenciaTermos();
+			}
+			
 		}
 		this.loadTreeItems();
 		this.defuzzy();
@@ -745,6 +807,7 @@ public class SampleController implements Initializable{
 			}
 		}
 		
+		variavelObjetiva.salvacaoFinal();
 		
 		int tickUnit = (Math.abs(variavelObjetiva.getUniversoStart())+Math.abs(variavelObjetiva.getUniversoEnd()))/10;
 		 
@@ -832,6 +895,8 @@ public class SampleController implements Initializable{
 	public Termos ativaFuncaoE(Termos termoAnterior, Termos termoPosterior){
 		double menorValor = Math.min(termoAnterior.getGrauDePertinencia(), termoPosterior.getGrauDePertinencia());
 		
+		
+		System.out.println(termoAnterior.getNomeTermo()+" "+termoPosterior.getNomeTermo()+" "+menorValor);
 		if (termoAnterior.getGrauDePertinencia()==menorValor) {
 			return termoAnterior;
 		}else{
