@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Variavel {
 	
@@ -56,7 +58,11 @@ public class Variavel {
 				return i;
 			}
 		}
-		return 0;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Termo não encontrado");
+		alert.setHeaderText("Termo não encontrado na variável "+this.getNome());
+
+		return -1;
 	}
 	
 	public void resetPertinenciaTermos(){
@@ -76,11 +82,20 @@ public class Variavel {
 	public void insereGrauDePertinenciaEmTermoByNome(String nomeDoTermo, double grauDePertinencia){
 		for (Termos termos : variaveisInseridas) {
 			if (termos.getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
-				if (termos.getGrauDePertinencia()<grauDePertinencia) {
-					termos.setGrauDePertinencia(grauDePertinencia);
-				}
+				termos.pertinencias.add(grauDePertinencia);
 			}
 		}
+	}
+	
+	public Termos retornaTermoByNome(String nomeDoTermo){
+		Termos termoToReturn = new Termos();
+		for (Termos termos : variaveisInseridas) {
+			if (termos.getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
+				termoToReturn= termos.clone();
+				break;
+			}
+		}
+		return termoToReturn;
 	}
 	
 	public void defineUniversos(){
@@ -102,6 +117,11 @@ public class Variavel {
 		return vRetorna;
 	}
 	
+	public void defineGrauDePertinenciaFinal(){
+		for (Termos termos : variaveisInseridas) {
+			termos.setaMaiorGrauDePertinencia();
+		}
+	}
 	
 /////////NOME	
 	public String getNome() {
