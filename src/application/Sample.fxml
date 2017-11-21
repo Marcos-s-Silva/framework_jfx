@@ -46,19 +46,37 @@
       <Label layoutX="14.0" layoutY="156.0" prefHeight="17.0" prefWidth="36.0" text="Valor:" />
       <Button fx:id="btnPadrao" layoutX="706.0" layoutY="656.0" mnemonicParsing="false" onAction="#preenchePadrao" text="Preencher" />
       <Button fx:id="btnAplicarRegras" layoutX="745.0" layoutY="196.0" mnemonicParsing="false" onAction="#capturaRegras" prefHeight="25.0" prefWidth="79.0" text="Aplicar" />
-      <TitledPane animated="false" expanded="false" layoutX="797.0" layoutY="12.0" prefHeight="74.0" prefWidth="466.0" text="Regras">
+      <TitledPane animated="false" expanded="false" layoutX="797.0" layoutY="12.0" prefHeight="148.0" prefWidth="466.0" text="Regras">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <MenuButton layoutX="91.0" layoutY="14.0" mnemonicParsing="false" text="Modificadores">
+                  <MenuButton layoutX="74.0" layoutY="14.0" mnemonicParsing="false" text="Modificadores">
                     <items>
                       <MenuItem mnemonicParsing="false" text="!muito" />
                       <MenuItem mnemonicParsing="false" text="!algo" />
                         <MenuItem mnemonicParsing="false" text="!defato" />
                     </items>
                   </MenuButton>
-                  <Label layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="66.0" text="\$VARIAVEL" />
-                  <Label layoutX="209.0" layoutY="18.0" prefHeight="17.0" prefWidth="174.0" text="TERMO entao OBJETIVA TERMO" />
+                  <Label layoutX="8.0" layoutY="18.0" prefHeight="17.0" prefWidth="66.0" text="\$VARIAVEL" />
+                  <Label layoutX="186.0" layoutY="18.0" prefHeight="17.0" prefWidth="174.0" text="TERMO entao OBJETIVA TERMO" />
+                  <Label layoutX="8.0" layoutY="48.0" prefHeight="17.0" prefWidth="66.0" text="\$VARIAVEL" />
+                  <Label layoutX="177.0" layoutY="48.0" prefHeight="17.0" prefWidth="313.0" text="TERMO &amp; $VARIAVEL TERMO entao OBJETIVA TERMO" />
+                  <Label layoutX="177.0" layoutY="81.0" prefHeight="17.0" prefWidth="313.0" text="TERMO || $VARIAVEL TERMO entao OBJETIVA TERMO" />
+                  <Label layoutX="8.0" layoutY="80.0" prefHeight="17.0" prefWidth="66.0" text="\$VARIAVEL" />
+                  <MenuButton layoutX="74.0" layoutY="76.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Modificadores">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="!muito" />
+                        <MenuItem mnemonicParsing="false" text="!algo" />
+                        <MenuItem mnemonicParsing="false" text="!defato" />
+                     </items>
+                  </MenuButton>
+                  <MenuButton layoutX="74.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Modificadores">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="!muito" />
+                        <MenuItem mnemonicParsing="false" text="!algo" />
+                        <MenuItem mnemonicParsing="false" text="!defato" />
+                     </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
         </content>
