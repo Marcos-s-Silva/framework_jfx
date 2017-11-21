@@ -585,7 +585,7 @@ public class SampleController implements Initializable{
 								+"se $temperatura ideal & $luminosidade alta & $chuva media entao qualidade boa\n"
 								+"se $temperatura baixa & $luminosidade alta & $chuva media entao qualidade media\n"
 								+"se $temperatura ideal & $luminosidade baixa || $chuva pouca entao qualidade baixa\n"
-								+"se $temperatura alta & $luminosidade media & &chuva muita entao qualidade boa\n");
+								+"se $temperatura alta & $luminosidade media & $chuva muita entao qualidade boa\n");
 		
 		
 		
