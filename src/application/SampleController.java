@@ -497,7 +497,7 @@ public class SampleController implements Initializable{
 		
 		v.inserirTermo(t);
 		v.inserirTermo(t2);
-		v.inserirTermo(t2);
+		v.inserirTermo(t3);
 		
 		b.calcula(v);
 		
@@ -644,14 +644,14 @@ public class SampleController implements Initializable{
 					
 					
 					if (linhaSplitted[j-2].startsWith("$")) {
-						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j].length())));
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j-2].length())));
 					}else{
-						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j].length())));
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j-3].length())));
 					}
 					anterior = variavelAnterior.retornaTermoUnico(variavelAnterior.retornaIndiceDoTermo(linhaSplitted[j-1]));
 					
 					
-					variavelPosterior = variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j].length())));
+					variavelPosterior = variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j+1].substring(1,linhaSplitted[j+1].length())));
 					
 					if (linhaSplitted[j+2].startsWith("!")) {
 						posterior = variavelPosterior.retornaTermoUnico(variavelPosterior.retornaIndiceDoTermo(linhaSplitted[j+3]));
@@ -690,9 +690,9 @@ public class SampleController implements Initializable{
 					
 					
 					if (linhaSplitted[j-2].startsWith("$")) {
-						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j].length())));
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-2].substring(1,linhaSplitted[j-2].length())));
 					}else{
-						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j].length())));
+						variavelAnterior = variaveisInseridas.get(this.returnIndexOfSelectedVariable(linhaSplitted[j-3].substring(1,linhaSplitted[j-3].length())));
 					}
 					anterior = variavelAnterior.retornaTermoUnico(variavelAnterior.retornaIndiceDoTermo(linhaSplitted[j-1]));
 					

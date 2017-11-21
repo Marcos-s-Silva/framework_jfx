@@ -1,5 +1,6 @@
 package Classes;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.beans.property.BooleanProperty;
@@ -22,6 +23,7 @@ public class Variavel {
 	private SimpleIntegerProperty universoStart;
 	private SimpleIntegerProperty universoEnd;
 	ObservableList<Termos> variaveisInseridas;
+	public ArrayList<Termos> termosToManipulate = new ArrayList<>();
 	
 	
 	
@@ -82,7 +84,9 @@ public class Variavel {
 	public void insereGrauDePertinenciaEmTermoByNome(String nomeDoTermo, double grauDePertinencia){
 		for (Termos termos : variaveisInseridas) {
 			if (termos.getNomeTermo().equalsIgnoreCase(nomeDoTermo)) {
-				termos.pertinencias.add(grauDePertinencia);
+				Termos aux = termos.clone();
+				aux.setGrauDePertinencia(grauDePertinencia);
+				this.termosToManipulate.add(aux);
 			}
 		}
 	}
@@ -116,10 +120,16 @@ public class Variavel {
 		vRetorna.setVariaveisInseridas(this.returnTemos());
 		return vRetorna;
 	}
-	
-	public void defineGrauDePertinenciaFinal(){
+
+	public void salvacaoFinal(){
 		for (Termos termos : variaveisInseridas) {
-			termos.setaMaiorGrauDePertinencia();
+			for (Termos termos2 : termosToManipulate) {
+				if (termos.getNomeTermo().equalsIgnoreCase(termos2.getNomeTermo())) {
+					if (termos.getGrauDePertinencia()<termos2.getGrauDePertinencia()) {
+						termos.setGrauDePertinencia(termos2.getGrauDePertinencia());
+					}
+				}
+			}
 		}
 	}
 	
