@@ -429,115 +429,163 @@ public class SampleController implements Initializable{
 	@FXML
 	public void preenchePadrao(){
 		
+		variaveisInseridas.clear();
+		
 		Variavel v = new Variavel();
 		Termos t = new Termos();
 		
 		
-		v.setNome("Dinheiro");
-		v.setValor(35);
+		v.setNome("Temperatura");
+		v.setValor(27);
 		
-		t.setNomeTermo("Inadequado");
+		t.setNomeTermo("Baixa");
+		t.setInicioNucleo(0);
+		t.setFimNucleo(15);
+		t.setInicioSuporte(0);
+		t.setFimSuporte(25);
+		
+		Termos t2 = new Termos();
+		t2.setNomeTermo("Ideal");
+		t2.setInicioNucleo(25);
+		t2.setFimNucleo(30);
+		t2.setInicioSuporte(15);
+		t2.setFimSuporte(35);
+		
+		Termos t3 = new Termos();
+		t3.setNomeTermo("Alta");
+		t3.setInicioNucleo(35);
+		t3.setFimNucleo(45);
+		t3.setInicioSuporte(30);
+		t3.setFimSuporte(45);
+		
+		v.inserirTermo(t);
+		v.inserirTermo(t2);
+		v.inserirTermo(t3);
+		
+		b.calcula(v);
+		variaveisInseridas.add(v);
+		
+		
+		
+		
+		
+		 v = new Variavel();
+		t = new Termos();
+		
+		v.setNome("Luminosidade");
+		v.setValor(70);
+		
+		t.setNomeTermo("Baixa");
 		t.setInicioNucleo(0);
 		t.setFimNucleo(30);
 		t.setInicioSuporte(0);
-		t.setFimSuporte(50);
+		t.setFimSuporte(45);
 		
-		Termos t2 = new Termos();
-		t2.setNomeTermo("Medio");
-		t2.setInicioNucleo(50);
-		t2.setFimNucleo(50);
+		t2 = new Termos();
+		t2.setNomeTermo("Media");
+		t2.setInicioNucleo(45);
+		t2.setFimNucleo(60);
 		t2.setInicioSuporte(30);
-		t2.setFimSuporte(70);
+		t2.setFimSuporte(75);
 		
-		Termos t3 = new Termos();
-		t3.setNomeTermo("Adequado");
-		t3.setInicioNucleo(70);
+		t3 = new Termos();
+		t3.setNomeTermo("Alta");
+		t3.setInicioNucleo(75);
 		t3.setFimNucleo(100);
-		t3.setInicioSuporte(50);
+		t3.setInicioSuporte(60);
+		t3.setFimSuporte(100);
+		
+		v.inserirTermo(t);
+		v.inserirTermo(t2);
+		v.inserirTermo(t2);
+		
+		b.calcula(v);
+		
+		variaveisInseridas.add(v);
+		
+		
+		
+		v = new Variavel();
+		t = new Termos();
+		
+		v.setNome("Chuva");
+		v.setValor(60);
+		
+		t.setNomeTermo("Pouca");
+		t.setInicioNucleo(0);
+		t.setFimNucleo(25);
+		t.setInicioSuporte(0);
+		t.setFimSuporte(45);
+		
+		t2 = new Termos();
+		t2.setNomeTermo("Media");
+		t2.setInicioNucleo(45);
+		t2.setFimNucleo(60);
+		t2.setInicioSuporte(30);
+		t2.setFimSuporte(75);
+		
+		t3 = new Termos();
+		t3.setNomeTermo("Muita");
+		t3.setInicioNucleo(75);
+		t3.setFimNucleo(100);
+		t3.setInicioSuporte(60);
 		t3.setFimSuporte(100);
 		
 		v.inserirTermo(t);
 		v.inserirTermo(t2);
 		v.inserirTermo(t3);
 		
-		
+		b.calcula(v);
 		variaveisInseridas.add(v);
 		
 		
 		
-		b.calcula(v);
 		
-		 v = new Variavel();
+		v = new Variavel();
 		t = new Termos();
 		
-		v.setNome("Pessoal");
-		v.setValor(60);
+		v.setNome("Qualidade");
+		v.setObjetiva(true);
 		
-		t.setNomeTermo("Baixo");
+		t.setNomeTermo("Baixa");
 		t.setInicioNucleo(0);
 		t.setFimNucleo(30);
 		t.setInicioSuporte(0);
-		t.setFimSuporte(70);
+		t.setFimSuporte(45);
 		
 		t2 = new Termos();
-		t2.setNomeTermo("Alto");
-		t2.setInicioNucleo(70);
-		t2.setFimNucleo(100);
+		t2.setNomeTermo("Media");
+		t2.setInicioNucleo(45);
+		t2.setFimNucleo(60);
 		t2.setInicioSuporte(30);
-		t2.setFimSuporte(100);
+		t2.setFimSuporte(70);
+		
+		t3 = new Termos();
+		t3.setNomeTermo("Boa");
+		t3.setInicioNucleo(70);
+		t3.setFimNucleo(100);
+		t3.setInicioSuporte(60);
+		t3.setFimSuporte(100);
 		
 		v.inserirTermo(t);
 		v.inserirTermo(t2);
-		
-		
-		
-		variaveisInseridas.add(v);
+		v.inserirTermo(t3);
 		
 		b.calcula(v);
+		variaveisInseridas.add(v);
 		
-		 v = new Variavel();
-			t = new Termos();
-			
-			v.setNome("Risco");
-			v.setObjetiva(true);
-			
-			t.setNomeTermo("Pequeno");
-			t.setInicioNucleo(10);
-			t.setFimNucleo(40);
-			t.setInicioSuporte(0);
-			t.setFimSuporte(60);
-			
-			t2 = new Termos();
-			t2.setNomeTermo("Normal");
-			t2.setInicioNucleo(60);
-			t2.setFimNucleo(60);
-			t2.setInicioSuporte(40);
-			t2.setFimSuporte(80);
-			
-			t3 = new Termos();
-			t3.setNomeTermo("Alto");
-			t3.setInicioNucleo(80);
-			t3.setFimNucleo(100);
-			t3.setInicioSuporte(60);
-			t3.setFimSuporte(100);
-			
-			v.inserirTermo(t);
-			v.inserirTermo(t2);
-			v.inserirTermo(t3);
-			
-			
-			variaveisInseridas.add(v);
-			
-			b.calcula(v);
 		
+	
 		
 		
 		this.loadTreeItems();
 		
 		this.areaRegras.setText("m");
-		this.areaRegras.setText("se $dinheiro adequado || $pessoal baixo entao risco pequeno\n"
-								+ "se $dinheiro medio & $pessoal alto entao risco normal\n"
-								+ "se $dinheiro inadequado entao risco alto\n");
+		this.areaRegras.setText("se $temperatura alta & $luminosidade alta & $chuva pouca entao qualidade baixa\n"
+								+"se $temperatura ideal & $luminosidade alta & $chuva media entao qualidade boa\n"
+								+"se $temperatura baixa & $luminosidade alta & $chuva media entao qualidade media\n"
+								+"se $temperatura ideal & $luminosidade baixa || $chuva pouca entao qualidade baixa\n"
+								+"se $temperatura alta & $luminosidade media & &chuva muita entao qualidade boa\n");
 		
 		
 		
@@ -706,9 +754,10 @@ public class SampleController implements Initializable{
 		int colunaSoma = variavelObjetiva.returnTemos().size()-1;
 		int tickfinal = variavelObjetiva.getUniversoEnd();
 		
-		variavelObjetiva.inverteListaTermos();
 		
-		for (Termos t : variavelObjetiva.returnTemos()) {
+		for (int i = variavelObjetiva.returnTemos().size()-1; i > -1; i--) {
+			Termos t = variavelObjetiva.returnTemos().get(i);
+			
 			XYChart.Series serieDoGrafico = new XYChart.Series<>();
 			serieDoGrafico.setName(t.getNomeTermo());
 			
@@ -721,12 +770,27 @@ public class SampleController implements Initializable{
 			
 			
 			int fimSup = t.getFimSuporte();
-			while (fimSup > (t.getInicioSuporte()+tickUnit)) {
-				somatorioSuporte = somatorioSuporte + tickfinal;
-				tickfinal = tickfinal-tickUnit;
-				qtdTick++;
-				fimSup=fimSup-tickUnit;
+			
+			if (i !=0 && variavelObjetiva.returnTemos().get(i-1).getGrauDePertinencia() != 0  ) {
+				System.out.println("PRIMEIRO "+t.getNomeTermo());
+				while (fimSup > (t.getInicioSuporte()-tickUnit)) {
+					somatorioSuporte = somatorioSuporte + tickfinal;
+					tickfinal = tickfinal-tickUnit;
+					qtdTick++;
+					fimSup=fimSup-tickUnit;
+				}
+			}else if(i==0 || variavelObjetiva.returnTemos().get(i-1).getGrauDePertinencia()==0){
+				System.out.println("SEGUNDO "+t.getNomeTermo());
+				while (fimSup > (t.getInicioSuporte())) {
+					somatorioSuporte = somatorioSuporte + tickfinal;
+					tickfinal = tickfinal-tickUnit;
+					qtdTick++;
+					fimSup=fimSup-tickUnit;	
+				}
+			}else{
+				System.out.println("ESTUDAMAIS");
 			}
+			
 			serieDoGrafico.getData().add(new XYChart.Data(tickfinal, t.getGrauDePertinencia()));
 			serieDoGrafico.getData().add(new XYChart.Data(qtdValorTick, t.getGrauDePertinencia()));
 			
@@ -735,9 +799,8 @@ public class SampleController implements Initializable{
 			somatorioSuporte = somatorioSuporte * t.getGrauDePertinencia();
 		
 			
-			
 			soma[linhaSoma][colunaSoma] = somatorioSuporte;
-			soma[linhaSoma+1][colunaSoma] = qtdTick*t.getGrauDePertinencia();
+			soma[linhaSoma+1][colunaSoma] = (double) qtdTick*t.getGrauDePertinencia();
 			colunaSoma--;
 		}
 		
@@ -754,11 +817,14 @@ public class SampleController implements Initializable{
 		
 		
 		double total = (qtdSomaTotal/qtdToDividir);
+		System.out.println("QTDSOMA "+qtdSomaTotal);
+		System.out.println("QTDTODIV "+qtdToDividir);
+		System.out.println("TOTAL "+total);
+		
 		txtFieldDeFuzzy.clear();
 		txtFieldDeFuzzy.setText(total+"");
 		
 		Collections.reverse(this.arrayDeDadosObjetiva);
-		variavelObjetiva.inverteListaTermos();
 		this.loadTreeItems();
 		
 	}
